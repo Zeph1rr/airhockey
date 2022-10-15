@@ -8,7 +8,7 @@
 
 ## Usage
 
-First you should clone the project install requirements
+First of all, you should clone the project and install requirements
 
 ### Windows
 ```bash
@@ -38,11 +38,11 @@ python ./src/main.py
 
 ## Rules
 
-- Game runs until red or blue player will not win
-- Win is gaining 6 points by any player
-- Player gain point when circle collide with one of the horizontal borders
-- You can reset game after win
-- After each collision with a car accelerate
+- Game runs until victory of red or blue player
+- Victory is achieved by gaining 6 points by any player
+- Player gains point when circle collides with one of the horizontal borders
+- You can reset game after victory
+- After each collision with a car circle accelerates
 
 ## Controls
 
