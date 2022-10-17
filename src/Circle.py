@@ -1,7 +1,9 @@
 from random import choice
+from os.path import join
+import pygame
 
 from Car import Car
-
+from constants import SCRIPT_PATH
 
 class Circle:
     def __init__(self, x, y, radius, speed: int = 5):
@@ -11,7 +13,8 @@ class Circle:
         self.speed = speed
         self.initial_speed = speed
         self.reset()
-
+        self.win_sound = pygame.mixer.Sound(join(SCRIPT_PATH, "assets", "sounds", "win.wav"))
+        self.collision_sound = pygame.mixer.Sound(join(SCRIPT_PATH, "assets", "sounds", "collision.wav"))
 
     def get_position(self):
         return self.x, self.y
@@ -26,7 +29,9 @@ class Circle:
     def check_walls(self, window_height, window_width, red_car, blue_car):
         if self.y > window_height or self.y < 0:
             self.y_direction *= -1
+            self.collision_sound.play()
         if self.x >= window_width or self.x <= 0:
+            self.win_sound.play()
             if self.x >= window_width:
                 red_car.win()
             if self.x <= 0:
@@ -36,10 +41,6 @@ class Circle:
     def check_collision(self, red_car, blue_car):
         return red_car[0] <= self.x <= red_car[1] and red_car[2] <= self.y <= red_car[3] \
                or blue_car[0] <= self.x <= blue_car[1] and blue_car[2] <= self.y <= blue_car[3]
-        # return red_car[0] <= self.x <= red_car[1] and (red_car[2] == self.y or self.y == red_car[3]) \
-        #        or self.x == red_car[1] and red_car[2] <= self.y <= red_car[3] \
-        #        or blue_car[0] <= self.x <= blue_car[1] and (blue_car[2] == self.y or self.y == blue_car[3]) \
-        #        or self.x == blue_car[0] and blue_car[2] <= self.y <= blue_car[3]
 
     def move(self, window_height, window_width, red_car: Car, blue_car: Car):
         self.x += self.x_direction * self.speed
@@ -47,7 +48,6 @@ class Circle:
         if self.check_collision(red_car.get_rect(), blue_car.get_rect()):
             self.x_direction *= -1
             self.speed += 1
+            self.collision_sound.play()
             return
         self.check_walls(window_height, window_width, red_car, blue_car)
-
-

@@ -16,5 +16,5 @@ if __name__ == "__main__":
     pygame.display.set_caption("Air Hockey")
     time = pygame.time.Clock()
 
-    game = GameManager(window=window, time=time, background_image=join(SCRIPT_PATH, "images", "bg.jpg"))
+    game = GameManager(window=window, time=time, background_image=join(SCRIPT_PATH, "assets/images", "bg.jpg"))
     game.game_loop()

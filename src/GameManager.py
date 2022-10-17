@@ -17,10 +17,11 @@ class GameManager:
         self.pause = True
         self.font = pygame.font.SysFont('arial', 30)
         self.has_winner = True
+        self.victory_sound = pygame.mixer.Sound(join(SCRIPT_PATH, "assets", "sounds", "victory.wav"))
 
     def init_objects(self):
-        self.red_car = Car(join(SCRIPT_PATH, "images", "RedCar.jpg"), 0, 220, self.window)
-        self.blue_car = Car(join(SCRIPT_PATH, "images", "BlueCar.jpg"), self.window.get_width() - 20, 220, self.window)
+        self.red_car = Car(join(SCRIPT_PATH, "assets/images", "RedCar.jpg"), 0, 220, self.window)
+        self.blue_car = Car(join(SCRIPT_PATH, "assets/images", "BlueCar.jpg"), self.window.get_width() - 20, 220, self.window)
         self.circle = Circle(self.window.get_width() / 2, self.window.get_height() / 2, 10)
 
     def get_text(self):
@@ -28,6 +29,7 @@ class GameManager:
             text = f"{self.red_car.score}:{self.blue_car.score}"
         else:
             self.has_winner = True
+            self.victory_sound.play()
             if self.red_car.score == 6:
                 text = "Red player wins!"
             else:
@@ -51,12 +53,6 @@ class GameManager:
             text_rect.center = (self.window.get_width() / 2, 150)
             self.window.blit(text_object, text_rect)
         pygame.draw.circle(self.window, (COLORS['yellow']), (self.circle.get_position()), self.circle.radius)
-
-    def check_win(self):
-        if self.circle.x >= self.window.get_width:
-            self.red_car.win()
-        if self.circle.x <= 0:
-            self.blue_car.win()
 
     def change_pause(self, value):
         self.pause = value
