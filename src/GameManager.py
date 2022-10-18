@@ -18,6 +18,7 @@ class GameManager:
         self.font = pygame.font.SysFont('arial', 30)
         self.has_winner = True
         self.victory_sound = pygame.mixer.Sound(join(SCRIPT_PATH, "assets", "sounds", "victory.wav"))
+        self.victory_sound.set_volume(0.1)
 
     def init_objects(self):
         self.red_car = Car(join(SCRIPT_PATH, "assets/images", "RedCar.jpg"), 0, 220, self.window)

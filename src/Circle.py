@@ -15,6 +15,8 @@ class Circle:
         self.reset()
         self.win_sound = pygame.mixer.Sound(join(SCRIPT_PATH, "assets", "sounds", "win.wav"))
         self.collision_sound = pygame.mixer.Sound(join(SCRIPT_PATH, "assets", "sounds", "collision.wav"))
+        self.win_sound.set_volume(0.1)
+        self.collision_sound.set_volume(0.1)
 
     def get_position(self):
         return self.x, self.y
